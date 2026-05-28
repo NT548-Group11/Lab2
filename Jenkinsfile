@@ -44,10 +44,13 @@ pipeline {
         }
 
         stage('SonarQube Analysis') {
+            environment {
+                SCANNER_HOME = tool 'sonar-scanner'
+            }
             steps {
                 echo "Code quality scan with SonarQube..."
                 withSonarQubeEnv('SonarQube') {
-                    sh "sonar-scanner"
+                    sh "${SCANNER_HOME}/bin/sonar-scanner"
                 }
             }
         }
