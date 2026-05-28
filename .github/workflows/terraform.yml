@@ -48,7 +48,7 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }} # ARN của IAM Role bạn tạo trên AWS
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN_TERRAFORM }} # ARN của IAM Role bạn tạo trên AWS
           aws-region: "us-east-1"
 
       - name: Setup Terraform
