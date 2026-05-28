@@ -1,0 +1,15 @@
+const express = require('express');
+const router = express.Router();
+const {
+    getOrders,
+    deleteOrders,
+    getOneOrder,
+} = require('../controllers/orderCtrl');
+const { isAdmin, authMiddleware } = require('../middlewares/authMiddleware');
+
+router.get('/',  authMiddleware, isAdmin, getOrders);
+router.delete('/:id', authMiddleware, isAdmin, deleteOrders);
+router.get('/:id', authMiddleware, isAdmin, getOneOrder);
+
+module.exports = router;
+

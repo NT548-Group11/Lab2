@@ -1,0 +1,81 @@
+.user-profile {
+  min-height: 100vh;
+  background: #fff;
+  padding: 50px;
+  height: 100%;
+
+  &__sider {
+     width: 260px;
+    background: #fafafa !important;
+    border-right: 1px solid #eee;
+  }
+
+  &__avatar-box {
+    text-align: center;
+    padding: 24px 0 16px 0;
+  }
+    &__content {
+    flex: 1; 
+    padding: 20px; 
+    background-color: #fff; 
+  }
+
+  &__username {
+    margin-top: 8px;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  &__edit-btn {
+    padding: 0;
+    font-size: 13px;
+  }
+
+  &__menu {
+    background: #fafafa !important;
+    border-right: 0;
+    font-size: 15px;
+  }
+
+  &__content {
+    padding: 32px;
+    background: #fff;
+  }
+
+  &__card {
+    border-radius: 8px;
+  }
+
+  &__desc {
+    margin-bottom: 16px;
+    color: #888;
+  }
+
+  &__row {
+    margin-bottom: 16px;
+    font-size: 15px;
+  }
+
+  &__save-btn {
+    margin-top: 16px;
+    width: 120px;
+  }
+
+  &__avatar-col {
+    text-align: center;
+  }
+
+  &__avatar-large {
+    margin-bottom: 16px;
+  }
+
+  &__choose-img-btn {
+    margin-bottom: 8px;
+  }
+
+  &__img-note {
+    color: #888;
+    margin-top: 8px;
+    font-size: 12px;
+  }
+}

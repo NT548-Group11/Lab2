@@ -1,0 +1,55 @@
+.exercise-detail {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 24px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+}
+
+.exercise-detail h1 {
+  text-align: center;
+  margin-bottom: 32px;
+  color: #2d3a4b;
+}
+
+.exercise-detail h2 {
+  color: #1976d2;
+  margin-bottom: 8px;
+}
+
+.exercise-detail p {
+  margin: 4px 0;
+  font-size: 16px;
+}
+
+.exercise-detail img {
+  display: block;
+  margin: 16px 0;
+  border-radius: 8px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+  max-width: 100%;
+  height: auto;
+}
+
+.exercise-detail a {
+  color: #1976d2;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.exercise-detail .steps {
+  margin-left: 16px;
+  margin-bottom: 12px;
+}
+
+.exercise-detail > div {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+}
+
+.exercise-detail > div:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
