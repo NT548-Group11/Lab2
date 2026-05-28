@@ -56,8 +56,8 @@ pipeline {
             steps {
                 echo "Images vulnerability scan with Trivy..."
                 script {
-                    trivy image --exit-code 1 --severity HIGH,CRITICAL "${env.FRONTEND_IMAGE_NAME}:${env.IMAGE_TAG}"
-                    trivy image --exit-code 1 --severity HIGH,CRITICAL "${env.BACKEND_IMAGE_NAME}:${env.IMAGE_TAG}"
+                    sh "docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image --exit-code 1 --severity HIGH,CRITICAL ${env.FRONTEND_IMAGE_NAME}:${env.IMAGE_TAG}"
+                    sh "docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image --exit-code 1 --severity HIGH,CRITICAL ${env.BACKEND_IMAGE_NAME}:${env.IMAGE_TAG}"
                 }
             }
         }
@@ -66,9 +66,10 @@ pipeline {
             steps {
                 echo "Deploy new image to K8s..."
                 script {
-                    sh "sed -i 's|hmdat1706/nt548-frontend:${old_tag}|${env.FRONTEND_IMAGE_NAME}:${env.IMAGE_TAG}|g' ./k8s/frontend-deployment.yaml"
-                    sh "sed -i 's|hmdat1706/nt548-backend:${old_tag}|${env.BACKEND_IMAGE_NAME}:${env.IMAGE_TAG}|g' ./k8s/backend-deployment.yaml"
+                    sh "sed -i 's|hmdat1706/nt548-frontend:.*|${env.FRONTEND_IMAGE_NAME}:${env.IMAGE_TAG}|g' ./k8s/frontend-deployment.yaml"
+                    sh "sed -i 's|hmdat1706/nt548-backend:.*|${env.BACKEND_IMAGE_NAME}:${env.IMAGE_TAG}|g' ./k8s/backend-deployment.yaml"
                     sh "kubectl apply -f ./k8s/"
+                }
             }
         }
     }
