@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    triggers {
+        // Lắng nghe Webhook từ GitHub: Mỗi lần git push, pipeline sẽ tự động chạy
+        githubPush()
+    }
+
     environment {
         // Lấy thông tin đăng nhập Docker Hub đã cấu hình trên Jenkins
         DOCKER_CREDENTIALS = credentials('docker-hub-creds')
