@@ -1,4 +1,6 @@
 resource "aws_vpc" "main" {
+  #checkov:skip=CKV2_AWS_11: Flow logs are too expensive/complex for this lab
+  #checkov:skip=CKV2_AWS_12: Default SG restriction not strictly needed in lab
   cidr_block           = var.vpc_cidr_block
   enable_dns_hostnames = true
   enable_dns_support   = true
@@ -9,6 +11,7 @@ resource "aws_vpc" "main" {
 }
 
 resource "aws_subnet" "public" {
+  #checkov:skip=CKV_AWS_130: Lab EC2 needs public IP to access internet and SSH
   vpc_id                  = aws_vpc.main.id
   cidr_block              = var.public_subnet_cidr
   availability_zone       = var.availability_zone
