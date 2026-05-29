@@ -4,7 +4,7 @@ WORKDIR /app
 RUN apk update && apk upgrade --no-cache
 
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm install
 
 COPY . .
 RUN npm run build
