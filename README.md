@@ -86,7 +86,7 @@ Phần này yêu cầu một máy chủ/máy ảo sử dụng hệ điều hành
 6. Bấm **Save** và nhấn **Build Now** để khởi chạy lần đầu tiên.
 
 ### 3.3 Cách kiểm tra kết quả triển khai
-Quy trình Pipeline thành công khi Jenkins báo tích xanh tất cả các Stage: Checkout -> Build -> Push -> SonarQube -> Trivy -> Deploy. Quá trình triển khai lên Kubernetes (K3s) được thực hiện bởi Jenkins.
+Quy trình Pipeline thành công khi Jenkins báo tích xanh tất cả các Stage: Checkout -> SonarQube -> Build -> Trivy -> Push -> Deploy. Quá trình triển khai lên Kubernetes (K3s) được thực hiện bởi Jenkins.
 
 1. **Kiểm tra Quality Gate (SonarQube):** 
    - Truy cập lại `http://<IP-Ubuntu>:9000`. Bạn sẽ thấy dự án đã được phân tích. Kiểm tra các mục Bugs, Vulnerabilities và Code Smells.

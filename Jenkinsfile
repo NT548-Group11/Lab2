@@ -21,28 +21,6 @@ pipeline {
             }
         }
 
-        stage("Build Docker Images") {
-            steps {
-                echo "Building the Docker images..."
-                script {
-                    docker.build("${env.FRONTEND_IMAGE_NAME}:${env.IMAGE_TAG}", "./app/frontend")
-                    docker.build("${env.BACKEND_IMAGE_NAME}:${env.IMAGE_TAG}", "./app/backend")
-                }
-            }
-        }
-
-        stage("Push Docker Images") {
-            steps {
-                echo "Pushing images to DockerHub..."
-                script {
-                    docker.withRegistry("https://index.docker.io/v1/", "docker-hub-creds") {
-                        docker.image("${env.FRONTEND_IMAGE_NAME}:${env.IMAGE_TAG}").push()
-                        docker.image("${env.BACKEND_IMAGE_NAME}:${env.IMAGE_TAG}").push()
-                    }
-                }
-            }
-        }
-
         stage('SonarQube Analysis') {
             environment {
                 SCANNER_HOME = tool 'sonar-scanner'
@@ -55,12 +33,34 @@ pipeline {
             }
         }
 
+        stage("Build Docker Images") {
+            steps {
+                echo "Building the Docker images..."
+                script {
+                    docker.build("${env.FRONTEND_IMAGE_NAME}:${env.IMAGE_TAG}", "./app/frontend")
+                    docker.build("${env.BACKEND_IMAGE_NAME}:${env.IMAGE_TAG}", "./app/backend")
+                }
+            }
+        }
+
         stage('Trivy Security Scan') {
             steps {
                 echo "Images vulnerability scan with Trivy..."
                 script {
                     sh "docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image --exit-code 1 --severity CRITICAL ${env.FRONTEND_IMAGE_NAME}:${env.IMAGE_TAG}"
                     sh "docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image --exit-code 1 --severity CRITICAL ${env.BACKEND_IMAGE_NAME}:${env.IMAGE_TAG}"
+                }
+            }
+        }
+
+        stage("Push Docker Images") {
+            steps {
+                echo "Pushing images to DockerHub..."
+                script {
+                    docker.withRegistry("https://index.docker.io/v1/", "docker-hub-creds") {
+                        docker.image("${env.FRONTEND_IMAGE_NAME}:${env.IMAGE_TAG}").push()
+                        docker.image("${env.BACKEND_IMAGE_NAME}:${env.IMAGE_TAG}").push()
+                    }
                 }
             }
         }
