@@ -3,7 +3,7 @@ WORKDIR /app
 
 RUN apk update && apk upgrade --no-cache
 
-COPY package.json package-lock.json ./
+COPY package.json ./
 RUN npm install
 
 COPY . .
