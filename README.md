@@ -15,14 +15,14 @@ Tài liệu này hướng dẫn chi tiết (End-to-End) cách triển khai các 
    - Audience: `sts.amazonaws.com`
 3. Tạo một **IAM Role** gán với Provider vừa tạo, đính kèm quyền `AdministratorAccess` (hoặc quyền giới hạn cho EC2/VPC).
 4. Lấy đoạn mã **ARN** của IAM Role đó (Ví dụ: `arn:aws:iam::123456789012:role/GitHubActionsRole`).
-5. Truy cập dịch vụ **EC2** trên AWS -> Chọn **Key Pairs** -> **Create key pair** -> Nhập tên `app-key` và tải file `.pem` về máy để sử dụng cho việc SSH sau này.
+5. Truy cập dịch vụ **EC2** trên AWS -> Chọn **Key Pairs** -> **Create key pair** -> Nhập tên `devops-lab2-key` và tải file `.pem` về máy để sử dụng cho việc SSH sau này.
 6. Vào kho code của bạn trên GitHub -> **Settings** -> **Secrets and variables** -> **Actions** -> Tạo một Repository Secret mới:
    - Tên: `AWS_ROLE_ARN_TERRAFORM`
    - Value: Điền mã ARN vừa copy vào.
 
 ### 1.2 Cách chạy mã nguồn (Kích hoạt luồng CI/CD)
 Luồng GitHub Actions (được định nghĩa trong file `.github/workflows/terraform.yml`) sẽ tự động được kích hoạt khi có thay đổi trong thư mục `terraform/`.
-1. Trên máy tính của bạn, chỉnh sửa bất kỳ file `.tf` nào trong thư mục `terraform/environments/dev/` (Ví dụ: đảm bảo cấu hình EC2 sử dụng key_name `app-key` vừa tạo).
+1. Trên máy tính của bạn, chỉnh sửa bất kỳ file `.tf` nào trong thư mục `terraform/environments/dev/` (Ví dụ: đảm bảo cấu hình EC2 sử dụng key_name `devops-lab2-key` vừa tạo).
 2. Lưu file, Commit và Push code lên nhánh `main`:
    ```bash
    git add terraform/
@@ -37,9 +37,9 @@ Luồng GitHub Actions (được định nghĩa trong file `.github/workflows/te
 ### 1.3 Cách kiểm tra kết quả triển khai
 1. Kiểm tra log của GitHub Actions: Nhấp vào luồng đang chạy để xem chi tiết Output của lệnh `terraform apply`. Đảm bảo nó báo thành công `Apply complete! Resources: X added...`
 2. Đăng nhập vào [AWS Management Console](https://aws.amazon.com/console/).
-3. Điều hướng tới dịch vụ **EC2**: Kiểm tra xem máy chủ ảo có tên `app-server` đã ở trạng thái *Running* và đã được gán Key pair `app-key` hay chưa.
+3. Điều hướng tới dịch vụ **EC2**: Kiểm tra xem máy chủ ảo có tên `devops-lab2-web-instance` đã ở trạng thái *Running* và đã được gán Key pair `devops-lab2-key` hay chưa.
 4. Điều hướng tới dịch vụ **VPC**: Kiểm tra hệ thống mạng ảo, Subnet và Internet Gateway đã được cấp phát đúng cấu hình mà Terraform định nghĩa chưa.
-5. (Tuỳ chọn) Sử dụng file `app-key.pem` đã tải về để SSH trực tiếp vào máy chủ EC2 kiểm tra.
+5. (Tuỳ chọn) Sử dụng file `devops-lab2-key.pem` đã tải về để SSH trực tiếp vào máy chủ EC2 kiểm tra.
 
 ---
 
