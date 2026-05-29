@@ -71,7 +71,8 @@ pipeline {
                 script {
                     sh "sed -i 's|hmdat1706/nt548-frontend:.*|${env.FRONTEND_IMAGE_NAME}:${env.IMAGE_TAG}|g' ./k8s-manifests/frontend/deployment.yaml"
                     sh "sed -i 's|hmdat1706/nt548-backend:.*|${env.BACKEND_IMAGE_NAME}:${env.IMAGE_TAG}|g' ./k8s-manifests/backend/deployment.yaml"
-                    echo "Jenkins (in Docker) updated the manifests! Please run 'kubectl apply' manually on your Ubuntu host to deploy."
+                    sh "kubectl apply -f ./k8s-manifests/backend/"
+                    sh "kubectl apply -f ./k8s-manifests/frontend/"
                 }
             }
         }

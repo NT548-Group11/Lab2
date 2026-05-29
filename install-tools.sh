@@ -48,6 +48,9 @@ echo "7. Khởi chạy SonarQube bằng Docker..."
 sudo sysctl -w vm.max_map_count=262144
 sudo docker run -d --name sonarqube -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true -p 9000:9000 sonarqube:lts-community
 
+echo "8. Khởi tạo K8s Namespace..."
+sudo kubectl create namespace devops-dev || true
+
 echo "=========================================="
 echo "CÀI ĐẶT HOÀN TẤT!"
 echo "Đang đợi Jenkins khởi động (15s)..."
