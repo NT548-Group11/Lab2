@@ -50,7 +50,7 @@ pipeline {
             steps {
                 echo "Code quality scan with SonarQube..."
                 withSonarQubeEnv('SonarQube') {
-                    sh "${SCANNER_HOME}/bin/sonar-scanner"
+                    sh "${SCANNER_HOME}/bin/sonar-scanner -Dsonar.projectKey=nt548-lab2"
                 }
             }
         }
