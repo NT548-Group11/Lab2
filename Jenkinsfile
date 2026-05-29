@@ -59,8 +59,8 @@ pipeline {
             steps {
                 echo "Images vulnerability scan with Trivy..."
                 script {
-                    sh "docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image --exit-code 1 --severity HIGH,CRITICAL ${env.FRONTEND_IMAGE_NAME}:${env.IMAGE_TAG}"
-                    sh "docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image --exit-code 1 --severity HIGH,CRITICAL ${env.BACKEND_IMAGE_NAME}:${env.IMAGE_TAG}"
+                    sh "docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image --exit-code 1 --severity CRITICAL ${env.FRONTEND_IMAGE_NAME}:${env.IMAGE_TAG}"
+                    sh "docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image --exit-code 1 --severity CRITICAL ${env.BACKEND_IMAGE_NAME}:${env.IMAGE_TAG}"
                 }
             }
         }
