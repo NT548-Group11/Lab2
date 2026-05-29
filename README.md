@@ -43,7 +43,7 @@ Luồng GitHub Actions (được định nghĩa trong file `.github/workflows/te
 
 ---
 
-## CÂU 2: Quản lý cấu hình với Ansible
+## CÂU 2:
 
 
 ---
